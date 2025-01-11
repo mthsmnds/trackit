@@ -15,9 +15,9 @@ function Header(){
 const Bar = styled.div`
             position: fixed;
             z-index: 1;
-            margin-top: 100px;
-            width: 101%;
+            width: 100vw;
             height: 70px;
+            box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 5%);
             background-color:#126BA5 ;
 `
 const Logo = styled.img`
@@ -35,5 +35,7 @@ const Profile = styled.img`
             width: 50px;
             border-radius: 50px;
 `
+
+
 
 export default Header;
