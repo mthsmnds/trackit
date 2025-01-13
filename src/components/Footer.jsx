@@ -1,15 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 function Footer(){
+            const location = useLocation();
+
+            const isHabits = location.pathname === "/habitos";
+            const isToday = location.pathname === "/hoje";
+
             return(
                         <BarWrap>
-                                    <Habits>
-                                    <IconOn src="public\calendar-on.svg"/>
+                                    <Habits active={isHabits}>
+                                    <Icon src={isHabits ? "public/calendar-on.svg" : "public/calendar-off.svg"} style={{width: "26px"}} />
                                     Hábitos
                                     </Habits>
-                                    <Today>
-                                    <IconOff src="public\event-off.svg"/>
+                                    <Today active={isToday}>
+                                    <Icon src={isToday ? "public/event-on.svg" : "public/event-off.svg"} style={{width: "20px"}} />
                                     Hoje
                                     </Today>
                         </BarWrap>
@@ -35,8 +41,8 @@ const Habits = styled.div`
             left: 0;
             width: 50%;
             height: 100%;
-            color: white;
-            background-color:#52B6FF ;
+            color: ${(props) => (props.active ? "white" : "#D4D4D4")};
+            background-color: ${(props) => (props.active ? "#52B6FF" : "#FFFFFF")};
 `
 const Today = styled.div`
             position: absolute;
@@ -46,18 +52,14 @@ const Today = styled.div`
             right: 0;
             width: 50%;
             height: 100%;
-            color: #D4D4D4;
-            background-color:#ffffff ;
+            color: ${(props) => (props.active ? "white" : "#D4D4D4")};
+            background-color: ${(props) => (props.active ? "#52B6FF" : "#ffffff")};
 `
 
-const IconOn = styled.img`
-            background-color:#52B6FF ;
+const Icon = styled.img`
             width: 24px;
-`
-const IconOff = styled.img`
-            background-color:#ffffff ;
-            width: 18px;
-            margin-right: 3px;
-`
+            margin-right: 8px;
+            background-color: inherit;
+`;
 
 export default Footer;

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Login from './pages/Login';
 import SignUp from "./pages/SignUp";
 import Habits from "./pages/Habits";
+import Today from "./pages/Today";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" element={<Login/>}/>
       <Route path="/cadastro" element={<SignUp/>}/>
       <Route path="/habitos" element={<Habits/>}/>
+      <Route path="/hoje" element={<Today/>}/>
     </Routes>
     </BrowserRouter>
   )
@@ -29,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #dfdfdf;
+    background-color: #f1f1f1;
   }
 `
 

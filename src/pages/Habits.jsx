@@ -24,6 +24,12 @@ function Habits(){
                                                 </Options>      
                                                 </HabitForm>          
                                     </HabitBox>
+                                    <HabitBox>
+                                                <Habit>
+                                                            <h1>Hábito placeholder</h1>
+                                                </Habit>
+                                                <Days><h1>D</h1><h1>S</h1><h1>T</h1><h1>Q</h1><h1>Q</h1><h1>S</h1><h1>S</h1>         </Days>
+                                    </HabitBox>
                                     <Warning>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Warning>
                         </Wrapper>
                         <Footer></Footer>
@@ -38,7 +44,6 @@ const Wrapper = styled.div`
             justify-content: center;
             align-items: center;
             padding-top: 100px;
-            /* background-color: #1ddf41; */
             `
 
 const AddHabit = styled.div`
@@ -69,10 +74,12 @@ const HabitBox = styled.div`
             flex-direction: column;
             justify-content: center;
             padding: 5px 15px 5px;
+            margin-bottom: 10px;
             border-radius: 8px;
             background-color: #FFFFFF;  
             position: relative;
             box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 5%);
+            width: 90%;
             `
 
 const HabitForm = styled.form`
@@ -83,6 +90,7 @@ const HabitForm = styled.form`
                         border-radius: 5px;
                         padding: 10px;
                         margin:3px;
+                        margin-top: 10px;
                         width: 80vw;
                         font-size: 16px;
                         color: #666666;
@@ -146,6 +154,16 @@ const Warning = styled.div`
             justify-content: center;
             padding: 20px;
             `
+const Habit = styled.div`
+            background-color: #FFFFFF;
+            margin: 3px;
 
+            h1{
+                        background-color: #FFFFFF;
+                        font-size: 20px;
+                        font-weight: 400;
+                        color: #666666
+            }
+`
 
 export default Habits;
