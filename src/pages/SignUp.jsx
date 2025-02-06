@@ -1,17 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from "react"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import axios from "axios"
 
 function SignUp(){
+            const [email, setEmail] = useState("");
+            const [password, setPassword] = useState("");
+            const [name, setName] = useState("");
+            const [image, setImage] = useState("");
+            const navigate =useNavigate
+
+            function createAccount(e){
+                        e.preventDefault()
+                        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+                        const body ={ email, name, image, password };
+
+                        axios.post(URL, body)
+                        .then(()=> navigate("/"))
+                        .catch(err => console.log(err.response.data))
+            }
+
             return(
                         <>
                         <Wrapper>
                         <Logo src="../public/trackit.svg"/>
-                        <TypeField>
-                        <input type = "email"  id = "signup-email" placeholder="email"  required/>
-                        <input type = "password"  id = "signup-password" placeholder="senha"  required/>
-                        <input type = "text"  id = "nome" placeholder="nome"  required/>
-                        <input type = "text"  id = "foto" placeholder="foto"  required/>
+                        <TypeField onSubmit={createAccount}>
+                        <input type = "email"  id = "signup-email" placeholder="email"  required value={email} onChange={e=> setEmail(e.target.value)}/>
+                        <input type = "password"  id = "signup-password" placeholder="senha"  required value={password} onChange={e=> setPassword(e.target.value)}/>
+                        <input type = "text"  id = "nome" placeholder="nome"  required value={name} onChange={e=> setName(e.target.value)}/>
+                        <input type = "text"  id = "foto" placeholder="foto"  required value={image} onChange={e=> setImage(e.target.value)}/>
                         <LogButton type="submit">Cadastrar</LogButton>
                         </TypeField>
                         <Login>Já tem uma conta? Faça o Login!</Login>
