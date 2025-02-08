@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-function Login(){
+function Login({setToken}){
             const [email, setEmail] = useState("");
             const [password, setPassword] = useState("");
+            let navigate = useNavigate();
 
             function sendLogin(e){
                         e.preventDefault();
@@ -13,7 +14,10 @@ function Login(){
                         const body = {email, password}
 
                         axios.post(URL, body)
-                        .then()
+                        .then(res=>{
+                                    setToken(res.data.token)
+                                    navigate("/habitos")
+                        })
                         .catch(err=> console.log(err.response.data)); 
             }
 
@@ -23,7 +27,7 @@ function Login(){
                         <Logo src="../public/trackit.svg"/>
                         <TypeField onSubmit={sendLogin}>
                         <input type = "email"  id = "login-email" placeholder="email"  required value={email} onChange={e => setEmail(e.target.value)}/>
-                        <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPasswordl(e.target.value)}/>
+                        <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPassword(e.target.value)}/>
                         <LogButton type="submit">Entrar</LogButton>
                         </TypeField>
                         <SignUp>Não possui uma conta? Cadastre-se!</SignUp>
@@ -73,7 +77,7 @@ const LogButton = styled.button`
             border: 1px solid #52B6FF;
             `
 
-const SignUp = styled.p`
+const SignUp = styled(Link)`
             font-size: 13px;
             text-decoration: underline;
             margin-top: 30px;
