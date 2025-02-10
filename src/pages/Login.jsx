@@ -16,6 +16,7 @@ function Login({setToken}){
                         axios.post(URL, body)
                         .then(res=>{
                                     setToken(res.data.token)
+                                    localStorage.setItem("token", res.data.token)
                                     navigate("/habitos")
                         })
                         .catch(err=> console.log(err.response.data)); 

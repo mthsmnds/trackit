@@ -3,12 +3,20 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Habits({token}){
             const [habits, setHabits] = useState(null);
             const [form, setForm] = useState(false);
             const [hname, setHname] = useState("");
             const [days, setDays] = useState([]);
+            const navigate = useNavigate();
+
+            useEffect(()=>{
+                        if(!token){
+                                    navigate("/");
+                        }
+            }, []);
 
             const toggleForm = () =>{
                         setForm((prev) => !prev);
@@ -22,7 +30,8 @@ function Habits({token}){
                         }
             };
 
-            const handleSave = () =>{
+            const handleSave = (e) =>{
+                        e.preventDefault();
                         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
                         const config ={
                                     headers:{
@@ -40,6 +49,7 @@ function Habits({token}){
                         setForm(false);
                         setHname("");
                         setDays([]);
+                        console.log(res.data);
             })
             .catch((err) => {
                         console.log(err.response.data);
@@ -48,6 +58,7 @@ function Habits({token}){
 
 
             useEffect(()=>{
+                        console.log("Token: ", token);
                         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
 
                         const config = {
@@ -57,7 +68,8 @@ function Habits({token}){
                         }
 
                         axios.get(URL, config)
-                        .then(res => setHabits(res.data))
+                        .then(res => {setHabits(res.data)
+                                                console.log(res.data)})
                         .catch(err => console.log(err.response.data));
             },[])
 
@@ -72,7 +84,7 @@ function Habits({token}){
                                     </AddHabit>
                                     {form &&
                                                 <HabitBox>
-                                                <HabitForm>                                 
+                                                <HabitForm onSubmit={handleSave}>                                 
                                                 <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required/> 
                                                 <Days>
                                                  {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
@@ -83,7 +95,7 @@ function Habits({token}){
                                                 </Days>
                                                 <Options>
                                                             <Cancel onClick={toggleForm}>Cancelar</Cancel>
-                                                            <Save onClick={handleSave}>Salvar</Save>
+                                                            <Save>Salvar</Save>
                                                 </Options>      
                                                 </HabitForm>          
                                     </HabitBox>
@@ -105,7 +117,7 @@ function Habits({token}){
                                     </AddHabit>
                                     {form &&
                                                 <HabitBox>
-                                                <HabitForm>                                 
+                                                <HabitForm onSubmit={handleSave}>                                 
                                                 <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required/> 
                                                 <Days>
                                                  {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
@@ -116,7 +128,7 @@ function Habits({token}){
                                                 </Days>
                                                 <Options>
                                                             <Cancel onClick={toggleForm}>Cancelar</Cancel>
-                                                            <Save onClick={handleSave}>Salvar</Save>
+                                                            <Save>Salvar</Save>
                                                 </Options>      
                                                 </HabitForm>          
                                     </HabitBox>

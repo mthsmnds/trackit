@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Footer(){
             const location = useLocation();
+            const navigate = useNavigate();
 
             const isHabits = location.pathname === "/habitos";
             const isToday = location.pathname === "/hoje";
