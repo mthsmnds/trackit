@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import UserContext from "../contexts/UserContext";
+import AuthContext from "../contexts/AuthContext";
 
-function Login({setToken}){
+function Login(){
             const [email, setEmail] = useState("");
             const [password, setPassword] = useState("");
+            const [user, setUser] = useContext(UserContext);
+            const {setToken} = useContext(AuthContext);
             let navigate = useNavigate();
 
             function sendLogin(e){
@@ -15,6 +19,7 @@ function Login({setToken}){
 
                         axios.post(URL, body)
                         .then(res=>{
+                                    setUser(res.data)
                                     setToken(res.data.token)
                                     localStorage.setItem("token", res.data.token)
                                     navigate("/habitos")

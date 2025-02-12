@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import AuthContext from "../contexts/AuthContext";
 
 function Today(){
+            const {token} = useContext(AuthContext);
+
+
             return(
                         <>
                         <Header></Header>

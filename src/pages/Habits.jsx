@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
-function Habits({token}){
+function Habits(){
             const [habits, setHabits] = useState(null);
             const [form, setForm] = useState(false);
             const [hname, setHname] = useState("");
             const [days, setDays] = useState([]);
+            const {token} = useContext(AuthContext);
             const navigate = useNavigate();
 
             useEffect(()=>{

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
 
 function Header(){
+            const [user] = useContext(UserContext)
+
             return(
                         <Bar>
                                     <Logo src="public\TrackIt@2x.svg"/>
-                                    <Profile src="public\placeholder.jpg" />
+                                    <Profile src={user.image} />
                         </Bar>
             )
 };
