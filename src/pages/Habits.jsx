@@ -51,7 +51,6 @@ function Habits(){
                         setForm(false);
                         setHname("");
                         setDays([]);
-                        console.log(res.data);
             })
             .catch((err) => {
                         console.log(err.response.data);
@@ -60,7 +59,6 @@ function Habits(){
 
 
             useEffect(()=>{
-                        console.log("Token: ", token);
                         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
 
                         const config = {
@@ -70,15 +68,14 @@ function Habits(){
                         }
 
                         axios.get(URL, config)
-                        .then(res => {setHabits(res.data)
-                                                console.log(res.data)})
+                        .then(res => {setHabits(res.data)})
                         .catch(err => console.log(err.response.data));
             },[])
 
             if (habits === null){
                         return(
                                     <>
-                                    <Header></Header>
+                                     <Header></Header>
                                     <Wrapper>
                                     <AddHabit>
                                                 <h1>Meus hábitos</h1>
@@ -140,9 +137,9 @@ function Habits(){
                                                             <HabitBox key={hab.id}>
                                                                          <Habit>
                                                                          <h1>{hab.name}</h1>
-                                                                         </Habit>
-                                                                         <Days>{hab.days.join(", ")}</Days>
-                                                            </HabitBox>
+                                                                        </Habit>
+                                                                        <Days>{hab.days.map(day => ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"][day]).join(", ")}</Days>
+                                                                         </HabitBox>
                                                 ))}
 
                         </Wrapper>

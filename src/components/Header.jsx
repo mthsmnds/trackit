@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
+import axios from "axios";
 
 function Header(){
             const [user] = useContext(UserContext)
@@ -8,7 +9,7 @@ function Header(){
             return(
                         <Bar>
                                     <Logo src="public\TrackIt@2x.svg"/>
-                                    <Profile src={user.image} />
+                                    {user ? <Profile src={user.image} /> : <p>Carregando...</p>}
                         </Bar>
             )
 };

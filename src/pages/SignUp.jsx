@@ -9,7 +9,7 @@ function SignUp(){
             const [password, setPassword] = useState("");
             const [name, setName] = useState("");
             const [image, setImage] = useState("");
-            const navigate =useNavigate
+            const navigate =useNavigate()
 
             function createAccount(e){
                         e.preventDefault()
@@ -20,6 +20,10 @@ function SignUp(){
                         .then(()=> navigate("/"))
                         .catch(err => console.log(err.response.data))
             }
+
+            const handleLogin= () =>{
+                        navigate("/");
+            };
 
             return(
                         <>
@@ -32,7 +36,7 @@ function SignUp(){
                         <input type = "text"  id = "foto" placeholder="foto"  required value={image} onChange={e=> setImage(e.target.value)}/>
                         <LogButton type="submit">Cadastrar</LogButton>
                         </TypeField>
-                        <Login onClick={navigate("/ ")}>Já tem uma conta? Faça o Login!</Login>
+                        <Login onClick={handleLogin}>Já tem uma conta? Faça o Login!</Login>
                         </Wrapper>
                         </>
             )
@@ -79,7 +83,7 @@ const LogButton = styled.button`
             border: 1px solid #52B6FF;
             `
 
-const Login = styled(Link)`
+const Login = styled.p`
             font-size: 13px;
             text-decoration: underline;
             margin-top: 30px;

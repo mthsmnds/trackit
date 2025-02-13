@@ -14,8 +14,8 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [user, setUser] = useState(null)
 
-  return (
-    <AuthContext.Provider value { { token, setToken } }>
+   return (
+    <AuthContext.Provider value={ { token, setToken } }>
     <UserContext.Provider value={[user, setUser]}>
     <BrowserRouter>
     <GlobalStyle/>

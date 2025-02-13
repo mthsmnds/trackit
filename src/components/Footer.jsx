@@ -2,27 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function Footer(){
+function Footer() {
             const location = useLocation();
             const navigate = useNavigate();
-
+        
             const isHabits = location.pathname === "/habitos";
             const isToday = location.pathname === "/hoje";
-
-            return(
-                        <BarWrap>
-                                    <Habits active={isHabits}>
-                                    <Icon src={isHabits ? "public/calendar-on.svg" : "public/calendar-off.svg"} style={{width: "26px"}} />
-                                    Hábitos
-                                    </Habits>
-                                    <Today active={isToday}>
-                                    <Icon src={isToday ? "public/event-on.svg" : "public/event-off.svg"} style={{width: "20px"}} />
-                                    Hoje
-                                    </Today>
-                        </BarWrap>
-            )
-};
-
+        
+            return (
+                <BarWrap>
+                    <Habits onClick={() => navigate("/habitos")} active={isHabits ? "true" : undefined}>
+                        <Icon 
+                            src={isHabits ? "public/calendar-on.svg" : "public/calendar-off.svg"} 
+                            style={{ width: "26px" }} 
+                        />
+                        Hábitos
+                    </Habits>
+        
+                    <Today onClick={() => navigate("/hoje")} active={isToday ? "true" : undefined}>
+                        <Icon 
+                            src={isToday ? "public/event-on.svg" : "public/event-off.svg"} 
+                            style={{ width: "20px" }} 
+                        />
+                        Hoje
+                    </Today>
+                </BarWrap>
+            );
+        }
 //----------------------------STYLES------------------------//
 
 const BarWrap = styled.div`

@@ -25,7 +25,11 @@ function Login(){
                                     navigate("/habitos")
                         })
                         .catch(err=> console.log(err.response.data)); 
-            }
+            };
+
+            const handleSignUp= () =>{
+                        navigate("/cadastro");
+            };
 
             return(
                         <>
@@ -36,7 +40,7 @@ function Login(){
                         <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPassword(e.target.value)}/>
                         <LogButton type="submit">Entrar</LogButton>
                         </TypeField>
-                        <SignUp>Não possui uma conta? Cadastre-se!</SignUp>
+                        <SignUp onClick={handleSignUp}>Não possui uma conta? Cadastre-se!</SignUp>
                         </Wrapper>
                         </>
             )
@@ -83,7 +87,7 @@ const LogButton = styled.button`
             border: 1px solid #52B6FF;
             `
 
-const SignUp = styled(Link)`
+const SignUp = styled.p`
             font-size: 13px;
             text-decoration: underline;
             margin-top: 30px;
