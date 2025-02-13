@@ -28,7 +28,7 @@ function SignUp(){
             return(
                         <>
                         <Wrapper>
-                        <Logo src="../public/trackit.svg"/>
+                        <Logo src="/trackit.svg"/>
                         <TypeField onSubmit={createAccount}>
                         <input type = "email"  id = "signup-email" placeholder="email"  required value={email} onChange={e=> setEmail(e.target.value)}/>
                         <input type = "password"  id = "signup-password" placeholder="senha"  required value={password} onChange={e=> setPassword(e.target.value)}/>

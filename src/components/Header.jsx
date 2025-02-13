@@ -8,7 +8,7 @@ function Header(){
 
             return(
                         <Bar>
-                                    <Logo src="public\TrackIt@2x.svg"/>
+                                    <Logo src="/TrackIt@2x.svg"/>
                                     {user ? <Profile src={user.image} /> : <p>Carregando...</p>}
                         </Bar>
             )

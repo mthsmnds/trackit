@@ -81,7 +81,7 @@ function Today() {
                                         <p>Seu recorde: {habit.highestSequence} dias</p>
                                     </Streak>
                                     <Checkmark
-                                        src="public/checkmark.svg"
+                                        src="/checkmark.svg"
                                         onClick={() => handleCheckmarkClick(habit.id, completedHabits.has(habit.id))}
                                         style={{
                                             filter: completedHabits.has(habit.id) ? 'invert(36%) sepia(74%) saturate(2067%) hue-rotate(118deg) brightness(104%) contrast(98%)' : 'none'

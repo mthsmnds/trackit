@@ -13,7 +13,7 @@ function Footer() {
                 <BarWrap>
                     <Habits onClick={() => navigate("/habitos")} active={isHabits ? "true" : undefined}>
                         <Icon 
-                            src={isHabits ? "public/calendar-on.svg" : "public/calendar-off.svg"} 
+                            src={isHabits ? "/calendar-on.svg" : "/calendar-off.svg"} 
                             style={{ width: "26px" }} 
                         />
                         Hábitos
@@ -21,7 +21,7 @@ function Footer() {
         
                     <Today onClick={() => navigate("/hoje")} active={isToday ? "true" : undefined}>
                         <Icon 
-                            src={isToday ? "public/event-on.svg" : "public/event-off.svg"} 
+                            src={isToday ? "/event-on.svg" : "/event-off.svg"} 
                             style={{ width: "20px" }} 
                         />
                         Hoje

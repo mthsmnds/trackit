@@ -34,7 +34,7 @@ function Login(){
             return(
                         <>
                         <Wrapper>
-                        <Logo src="../public/trackit.svg"/>
+                        <Logo src="/trackit.svg"/>
                         <TypeField onSubmit={sendLogin}>
                         <input type = "email"  id = "login-email" placeholder="email"  required value={email} onChange={e => setEmail(e.target.value)}/>
                         <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPassword(e.target.value)}/>
