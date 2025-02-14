@@ -24,7 +24,8 @@ function Login(){
                                     localStorage.setItem("token", res.data.token)
                                     navigate("/habitos")
                         })
-                        .catch(err=> console.log(err.response.data)); 
+                        .catch(err => {console.log(err.response.data),
+                                    alert(`Ocorreu o seguinte erro ao tentar realizar seu login: \n ${err.response.data.message} \n Revise os campos e tente novamente.`)})
             };
 
             const handleSignUp= () =>{

@@ -18,7 +18,8 @@ function SignUp(){
 
                         axios.post(URL, body)
                         .then(()=> navigate("/"))
-                        .catch(err => console.log(err.response.data))
+                        .catch(err => {console.log(err.response.data),
+                        alert(`Ocorreu o seguinte erro ao tentar realizar seu cadastro: \n ${err.response.data.message} \n Revise os campos e tente novamente.`)})
             }
 
             const handleLogin= () =>{
@@ -33,7 +34,7 @@ function SignUp(){
                         <input type = "email"  id = "signup-email" placeholder="email"  required value={email} onChange={e=> setEmail(e.target.value)}/>
                         <input type = "password"  id = "signup-password" placeholder="senha"  required value={password} onChange={e=> setPassword(e.target.value)}/>
                         <input type = "text"  id = "nome" placeholder="nome"  required value={name} onChange={e=> setName(e.target.value)}/>
-                        <input type = "text"  id = "foto" placeholder="foto"  required value={image} onChange={e=> setImage(e.target.value)}/>
+                        <input type = "text"  id = "foto" placeholder="link da foto"  required value={image} onChange={e=> setImage(e.target.value)}/>
                         <LogButton type="submit">Cadastrar</LogButton>
                         </TypeField>
                         <Login onClick={handleLogin}>Já tem uma conta? Faça o Login!</Login>
