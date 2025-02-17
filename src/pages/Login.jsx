@@ -8,12 +8,15 @@ import AuthContext from "../contexts/AuthContext";
 function Login(){
             const [email, setEmail] = useState("");
             const [password, setPassword] = useState("");
+            const [loading, setLoading] = useState(false);
             const [user, setUser] = useContext(UserContext);
             const {setToken} = useContext(AuthContext);
-            let navigate = useNavigate();
+            const navigate = useNavigate();
 
             function sendLogin(e){
                         e.preventDefault();
+                        setLoading(true);
+
                         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
                         const body = {email, password}
 
@@ -26,6 +29,7 @@ function Login(){
                         })
                         .catch(err => {console.log(err.response.data),
                                     alert(`Ocorreu o seguinte erro ao tentar realizar seu login: \n ${err.response.data.message} \n Revise os campos e tente novamente.`)})
+                        .finally(()=> setLoading(false))
             };
 
             const handleSignUp= () =>{
@@ -36,12 +40,12 @@ function Login(){
                         <>
                         <Wrapper>
                         <Logo src="/trackit.svg"/>
-                        <TypeField onSubmit={sendLogin}>
-                        <input type = "email"  id = "login-email" placeholder="email"  required value={email} onChange={e => setEmail(e.target.value)}/>
-                        <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPassword(e.target.value)}/>
-                        <LogButton type="submit">Entrar</LogButton>
+                        <TypeField onSubmit={sendLogin} disabled={loading}>
+                        <input type = "email"  id = "login-email" placeholder="email"  required value={email} onChange={e => setEmail(e.target.value)} disabled={loading}/>
+                        <input type = "password"  id = "login-password" placeholder="senha"  required value={password} onChange={e => setPassword(e.target.value)} disabled={loading}/>
+                        <LogButton type="submit" disabled={loading}>{loading ? "Entrando..." : "Entrar"}</LogButton>
                         </TypeField>
-                        <SignUp onClick={handleSignUp}>Não possui uma conta? Cadastre-se!</SignUp>
+                        <SignUp onClick={handleSignUp} disabled={loading}>Não possui uma conta? Cadastre-se!</SignUp>
                         </Wrapper>
                         </>
             )
@@ -83,7 +87,7 @@ const LogButton = styled.button`
             height:40px;
             border-radius: 8px;
             margin-top: 3px;
-            background-color: #52B6FF;
+            background-color: ${(props) => (props.disabled ? "#9ed4fa" : "#52B6FF")}; 
             color: white;
             border: 1px solid #52B6FF;
             `

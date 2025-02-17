@@ -48,19 +48,35 @@ function Today() {
                 };
         
                 axios.post(URL, {}, config)
-                    .then(() => {
-                        setCompletedHabits(prev => {
-                            const newCompleted = new Set(prev);
-                            if (isChecked) {
-                                newCompleted.delete(habitId); 
-                            } else {
-                                newCompleted.add(habitId);
-                            }
-                            return newCompleted;
-                        });
-                    })
-                    .catch(err => console.log(err.response.data));
-            };
+                .then(() => {
+                    setCompletedHabits(prev => {
+                        const newCompleted = new Set(prev);
+                        if (isChecked) {
+                            newCompleted.delete(habitId);
+                        } else {
+                            newCompleted.add(habitId);
+                        }
+                        return newCompleted;
+                    });
+    
+                    setHabits(prevHabits =>
+                        prevHabits.map(habit => habit.id === habitId ? {
+                                    ...habit,
+                                    done: !isChecked,
+                                    currentSequence: isChecked 
+                                        ? habit.currentSequence - 1 
+                                        : habit.currentSequence + 1,
+                                    highestSequence: isChecked
+                                        ? habit.highestSequence  
+                                        : Math.max(habit.highestSequence, habit.currentSequence + 1) 
+                                }
+                                : habit
+                        )
+                    );
+                })
+                .catch(err => console.log(err.response.data));
+        };
+    
         
             return (
                 <>

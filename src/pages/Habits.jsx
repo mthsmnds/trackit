@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 function Habits(){
-            const [habits, setHabits] = useState(null);
+            const [habits, setHabits] = useState([]);
             const [form, setForm] = useState(false);
             const [hname, setHname] = useState("");
             const [days, setDays] = useState([]);
+            const [loading, setLoading] = useState(false);
             const {token} = useContext(AuthContext);
             const navigate = useNavigate();
 
@@ -34,6 +35,14 @@ function Habits(){
 
             const handleSave = (e) =>{
                         e.preventDefault();
+
+                        if(days.length === 0){
+                                    alert("Selecione pelo menos um dia da semana!");
+                                    return;
+                        }
+                        
+                        setLoading(true);
+
                         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
                         const config ={
                                     headers:{
@@ -41,9 +50,11 @@ function Habits(){
                                     }
                         }
 
-            const body ={ name: hname,
+                        const body ={ name: hname,
                                     days: days,
                                     }
+
+
 
             axios.post(URL, body, config)
             .then((res) =>{
@@ -55,6 +66,7 @@ function Habits(){
             .catch((err) => {
                         console.log(err.response.data);
             })
+            .finally(()=> setLoading(false))
             };          
 
 
@@ -72,39 +84,39 @@ function Habits(){
                         .catch(err => console.log(err.response.data));
             },[])
 
-            if (habits === null){
-                        return(
-                                    <>
-                                     <Header></Header>
-                                    <Wrapper>
-                                    <AddHabit>
-                                                <h1>Meus hábitos</h1>
-                                                <h2 onClick={toggleForm}>+</h2>
-                                    </AddHabit>
-                                    {form &&
-                                                <HabitBox>
-                                                <HabitForm onSubmit={handleSave}>                                 
-                                                <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required/> 
-                                                <Days>
-                                                 {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
-                                                            <Day key={index} selected={days.includes(index)} onClick={() => dayToggle(index)}>
-                                                                        {day}
-                                                            </Day>
-                                                 ))}
-                                                </Days>
-                                                <Options>
-                                                            <Cancel onClick={toggleForm}>Cancelar</Cancel>
-                                                            <Save>Salvar</Save>
-                                                </Options>      
-                                                </HabitForm>          
-                                    </HabitBox>
-                                    }
-                                    <Warning>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Warning>
-                                    </Wrapper>
-                                    <Footer></Footer>
-                                    </>
-                         )
-             }
+            // if (habits === null){
+            //             return(
+            //                         <>
+            //                          <Header></Header>
+            //                         <Wrapper>
+            //                         <AddHabit>
+            //                                     <h1>Meus hábitos</h1>
+            //                                     <h2 onClick={toggleForm}>+</h2>
+            //                         </AddHabit>
+            //                         {form &&
+            //                                     <HabitBox>
+            //                                     <HabitForm onSubmit={handleSave} disabled={loading}>                                 
+            //                                     <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required disabled={loading}/> 
+            //                                     <Days disabled={loading}>
+            //                                      {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
+            //                                                 <Day key={index} selected={days.includes(index)} onClick={() => dayToggle(index)}  disabled={loading}>
+            //                                                             {day}
+            //                                                 </Day>
+            //                                      ))}
+            //                                     </Days>
+            //                                     <Options>
+            //                                                 <Cancel onClick={toggleForm} disabled={loading}>Cancelar</Cancel>
+            //                                                 <Save disabled={loading || days.length === 0}>{loading ? "Salvando..." : "Salvar"}</Save>
+            //                                     </Options>      
+            //                                     </HabitForm>          
+            //                         </HabitBox>
+            //                         }
+            //                        {habits.length === 0 && (
+            //                         <Warning>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Warning>)}</Wrapper>
+            //                         <Footer></Footer>
+            //                         </>
+            //              )
+            //  }
 
             return(
                         <>
@@ -116,18 +128,18 @@ function Habits(){
                                     </AddHabit>
                                     {form &&
                                                 <HabitBox>
-                                                <HabitForm onSubmit={handleSave}>                                 
-                                                <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required/> 
-                                                <Days>
+                                                <HabitForm onSubmit={handleSave} disabled={loading}>                                 
+                                                <input type = "text"  id = "habit-name" placeholder="nome do hábito" value={hname} onChange ={(e) => setHname(e.target.value)} required disabled={loading}/> 
+                                                <Days  disabled={loading}>
                                                  {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
-                                                            <Day key={index} selected={days.includes(index)} onClick={() => dayToggle(index)}>
+                                                            <Day key={index} selected={days.includes(index)} onClick={() => dayToggle(index)} disabled={loading}>
                                                                         {day}
                                                             </Day>
                                                  ))}
                                                 </Days>
                                                 <Options>
-                                                            <Cancel onClick={toggleForm}>Cancelar</Cancel>
-                                                            <Save>Salvar</Save>
+                                                            <Cancel onClick={toggleForm} disabled={loading}>Cancelar</Cancel>
+                                                            <Save disabled={loading}>{loading ? "Salvando..." : "Salvar"}</Save>
                                                 </Options>      
                                                 </HabitForm>          
                                     </HabitBox>
@@ -135,13 +147,20 @@ function Habits(){
 
                                     {habits.map(hab => (
                                                             <HabitBox key={hab.id}>
-                                                                         <Habit>
-                                                                         <h1>{hab.name}</h1>
-                                                                        </Habit>
-                                                                        <Days>{hab.days.map(day => ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"][day]).join(", ")}</Days>
-                                                                         </HabitBox>
+                                                            <Habit>
+                                                                <h1>{hab.name}</h1>
+                                                            </Habit>
+                                                            <Days>
+                                                                {["D", "S", "T", "Q", "Q", "S", "S"].map((day, index) => (
+                                                                    <Day key={index} selected={hab.days.includes(index)}>
+                                                                        {day}
+                                                                    </Day>
+                                                                ))}
+                                                            </Days>
+                                                        </HabitBox>
                                                 ))}
-
+                                    {habits.length === 0 && (
+                                    <Warning>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Warning>)}
                         </Wrapper>
                         <Footer></Footer>
                         </>
@@ -155,6 +174,7 @@ const Wrapper = styled.div`
             justify-content: center;
             align-items: center;
             padding-top: 100px;
+            padding-bottom: 80px;
             `
 
 const AddHabit = styled.div`
